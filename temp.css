@@ -1,0 +1,29 @@
+#background {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: -1;
+	/*Ä¥É°Ð§¹û*/
+	-webkit-filter: blur(3px);
+}
+
+#top {
+	width: 100%;
+	height: 35px;
+	position: absolute;
+	top: 0;
+	background: rgb(103, 90, 74);
+	opacity: 0.9;
+}
+
+#search-area {
+	width: 60%;
+	height: 100%;
+	position: absolute;
+	top: 10px;
+}
+
+#check {
+	width: 50px;
+	border-radius: 15px;
+}
