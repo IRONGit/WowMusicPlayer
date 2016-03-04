@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>index.html</title>
+<title>Wow! Player</title>
 <link rel="stylesheet" type="text/css" href="styles/id.css">
 <link rel="stylesheet" type="text/css" href="styles/class.css">
 <link rel="stylesheet" type="text/css" href="styles/temp.css">
@@ -73,10 +73,62 @@
 				</ul>
 				<div id="music-area">
 					<div id="music-list-area">
-
+					<!-- 
+						<div class="music music-left">
+							<a class="music-list" songlink="aaa" link="w d dsada"><p>我的歌声里</p>
+								<br>
+							<p>李代沫</p></a> <span class="add-to-favourite"></span>
+						</div>
+						<div class="music music-right">
+							<a class="music-list" link="w d dsada"><p>我的歌声里</p>
+								<br>
+							<p>李代沫</p></a> <span class="add-to-favourite"></span>
+						</div>
+						<div class="music music-left">
+							<a class="music-list" link="w d dsada"><p>我的歌声里</p>
+								<br>
+							<p>李代沫</p></a> <span class="add-to-favourite"></span>
+						</div>
+						<div class="music music-right">
+							<a class="music-list" link="w d dsada"><p>我的歌声里</p>
+								<br>
+							<p>李代沫</p></a> <span class="add-to-favourite"></span>
+						</div>
+						<div class="music music-left">
+							<a class="music-list" link="w d dsada"><p>我的歌声里</p>
+								<br>
+							<p>李代沫</p></a> <span class="add-to-favourite"></span>
+						</div>
+						<div class="music music-right">
+							<a class="music-list" link="w d dsada"><p>我的歌声里</p>
+								<br>
+							<p>李代沫</p></a> <span class="add-to-favourite"></span>
+						</div>
+						<div class="music music-left">
+							<a class="music-list" link="w d dsada"><p>我的歌声里</p>
+								<br>
+							<p>李代沫</p></a> <span class="add-to-favourite"></span>
+						</div>
+						 -->
 					</div>
 					<div id="search-result-area" style="display: none;">
-
+					<!-- 
+						<div class="music music-result">
+							<a class="music-list music-list-result" link="w d dsada"><p>我的歌声里</p>
+								<br>
+							<p>李代沫</p></a> <span class="add-to-favourite"></span>
+						</div>
+						<div class="music music-result">
+							<a class="music-list music-list-result" link="w d dsada"><p>江南</p>
+								<br>
+							<p>林俊杰</p></a> <span class="add-to-favourite"></span>
+						</div>
+						<div class="music music-result">
+							<a class="music-list music-list-result" link="w d dsada"><p>背对背拥抱</p>
+								<br>
+							<p>林俊杰</p></a> <span class="add-to-favourite"></span>
+						</div>
+					-->
 					</div>
 
 					<!-- 收藏列表 -->
@@ -104,8 +156,8 @@
 							<p>李代沫</p>
 							</a>
 							<span class="download-this-song"></span>
-							<span class="add-to-favourite"></span> 
-						</div> 
+							<span class="add-to-favourite"></span>
+						</div>
 					-->
 					</div>
 				</div>
@@ -118,15 +170,15 @@
 			</div> -->
 		<div id="skinArea" style="display: none;">
 			<ul>
-				<li><img src="images/bg1-min.PNG" class="skin-min" id="bg1-min"></li>
-				<li><img src="images/bg1-min.PNG" class="skin-min" id="bg2-min"></li>
-				<li><img src="images/bg1-min.PNG" class="skin-min" id="bg3-min"></li>
-				<li><img src="images/bg1-min.PNG" class="skin-min" id="bg4-min"></li>
-				<li><img src="images/bg1-min.PNG" class="skin-min" id="bg5-min"></li>
-				<li><img src="images/bg1-min.PNG" class="skin-min" id="bg6-min"></li>
-				<li><img src="images/bg1-min.PNG" class="skin-min" id="bg7-min"></li>
-				<li><img src="images/bg1-min.PNG" class="skin-min" id="bg8-min"></li>
-				<li><img src="images/bg1-min.PNG" class="skin-min" id="bg9-min"></li>
+				<li><img src="images/bgmin/bg1-min.jpg" class="skin-min" id="bg1-min"></li>
+				<li><img src="images/bgmin/bg2-min.jpg" class="skin-min" id="bg2-min"></li>
+				<li><img src="images/bgmin/bg3-min.jpg" class="skin-min" id="bg3-min"></li>
+				<li><img src="images/bgmin/bg4-min.jpg" class="skin-min" id="bg4-min"></li>
+				<li><img src="images/bgmin/bg5-min.jpg" class="skin-min" id="bg5-min"></li>
+				<li><img src="images/bgmin/bg6-min.jpg" class="skin-min" id="bg6-min"></li>
+				<li><img src="images/bgmin/bg7-min.jpg" class="skin-min" id="bg7-min"></li>
+				<li><img src="images/bgmin/bg8-min.jpg" class="skin-min" id="bg8-min"></li>
+				<li><img src="images/bgmin/bg9-min.jpg" class="skin-min" id="bg9-min"></li>
 			</ul>
 		</div>
 	</div>

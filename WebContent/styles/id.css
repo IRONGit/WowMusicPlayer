@@ -3,6 +3,7 @@
 	padding: 0;
 	/*ÓÐÒþ»¼*/
 	overflow: hidden;
+	-webkit-text-size-adjust:none;
 }
 
 #wrapper {
