@@ -20,7 +20,7 @@ var lrcIndex = 0;
 
 var playMode = "sxbf";
 
-var lrcFinalPos=-1;
+var lrcFinalPos = -1;
 
 var dragBallTimeout;
 
@@ -36,31 +36,45 @@ $(function() {
 	initOther();
 });
 
-
-function reset(){
-	lrcFinalPos=-1;
-	currentPosX=-1;
- 	currentPosY=-1;
- 	lrcPosY=0;
- 	gbLrcPos=-1;
- 	$('hr').remove();
- 	clearTimeout(dragBallTimeout);
-	//lrcArray
+function reset() {
+	lrcFinalPos = -1;
+	currentPosX = -1;
+	currentPosY = -1;
+	lrcPosY = 0;
+	gbLrcPos = -1;
+	$('hr').remove();
+	clearTimeout(dragBallTimeout);
+	$('#process-dragbox').css("left","0");
+	dragBallTimeout = setTimeout("dragBallAnimate()", 10);
+	// lrcArray
 }
 
 function initOther() {
 	modeN.css("color", "yellow");
 	initProcessLine();
 }
-function initProcessLine(){
+function initProcessLine() {
 	$('#control-area').append("<div id =\"process-line\"></div>");
-	$('#process-line').css({"width":"100%","height":"1px","background-color":"black","position":"absolute","bottom":"95%"});
-	$('#control-area').append("<div id =\"process-dragbox\"></div>");
-	$('#process-dragbox').css({"width":"9px","height":"9px","background-color":"blue","position":"absolute","bottom":"92%","border-radius":"9px"});
-	$('#process-dragbox').mouseover(function(){
-		$(this).css("cursor","pointer");
+	$('#process-line').css({
+		"width" : "100%",
+		"height" : "1px",
+		"background-color" : "black",
+		"position" : "absolute",
+		"bottom" : "95%"
 	});
-//	processControl();
+	$('#control-area').append("<div id =\"process-dragbox\"></div>");
+	$('#process-dragbox').css({
+		"width" : "9px",
+		"height" : "9px",
+		"background-color" : "#A8BCD6",
+		"position" : "absolute",
+		"bottom" : "92%",
+		"border-radius" : "9px"
+	});
+	$('#process-dragbox').mouseover(function() {
+		$(this).css("cursor", "pointer");
+	});
+	// processControl();
 	boxDrag();
 }
 function animate(data) {
@@ -114,11 +128,10 @@ function animate(data) {
 	// animateTest();
 }
 function newAnimate() {
-	
-	
-	var bIndex=0;
-	if(gbLrcPos!==-1){
-		bIndex=Math.ceil(Math.abs(gbLrcPos/$('.lrc-p').height()));
+
+	var bIndex = 0;
+	if (gbLrcPos !== -1) {
+		bIndex = Math.ceil(Math.abs(gbLrcPos / $('.lrc-p').height()));
 	}
 
 	var currentTime = document.getElementsByTagName('audio')[0].currentTime;
@@ -128,29 +141,23 @@ function newAnimate() {
 
 	for ( var i = bIndex; i < lrcLength; i++) {
 		if (currentTime >= endTime) {
-			lrcFinalPos=parseInt($('#lrc-content').css("top"));
+			lrcFinalPos = parseInt($('#lrc-content').css("top"));
+			
+			$('#lrc-content').css("top", -((lrcLength-1) * 20) + "px");
+			$('#weight').removeAttr("id");
+			document.getElementsByClassName("lrc-p")[lrcLength + 1].setAttribute(
+					"id", "weight");
 			break;
 		} else {
 			if (flagArray[i] == false && i > 0 && currentTime > timeIntArray[i]) {
 				flagArray[i] = true;
 				$('#weight').removeAttr("id");
-				/*
-				 * if(i+3<=lrcLength-1){
-				 * document.getElementsByClassName("lrc-p")[i+3].setAttribute("id","weight"); }
-				 */
-				/*
-				 * $('#weight').attr("id","");
-				 */
+
 				document.getElementsByClassName("lrc-p")[i + 3].setAttribute(
 						"id", "weight");
-				/*$('#lrc-content').css("top",
-						(parseInt($('#lrc-content').css("top")) - 20) + "px");*/
-				$('#lrc-content').css("top",-(i*20)+"px");
-				
-				//设置歌词拖动条的位置
-				/*var rate=document.getElementsByTagName('audio')[0].currentTime/document.getElementsByTagName('audio')[0].duration;
-				var contentWidth=$('#control-area').width();
-				$('#process-dragbox').css("left",contentWidth*rate+"px");*/
+	
+				$('#lrc-content').css("top", -(i * 20) + "px");
+	
 				break;
 			}
 		}
@@ -159,13 +166,13 @@ function newAnimate() {
 	lrcTimeout = setTimeout("newAnimate()", 10);
 }
 
-function dragBallAnimate(){
-	var rate=document.getElementsByTagName('audio')[0].currentTime/document.getElementsByTagName('audio')[0].duration;
-	var contentWidth=$('#control-area').width();
-	$('#process-dragbox').css("left",contentWidth*rate+"px");
-	dragBallTimeout=setTimeout("dragBallAnimate()",10);
+function dragBallAnimate() {
+	var rate = document.getElementsByTagName('audio')[0].currentTime
+			/ document.getElementsByTagName('audio')[0].duration;
+	var contentWidth = $('#control-area').width();
+	$('#process-dragbox').css("left", contentWidth * rate + "px");
+	dragBallTimeout = setTimeout("dragBallAnimate()", 10);
 }
-
 
 // 废弃
 function animateTest() {
@@ -248,19 +255,16 @@ function NolrcTips() {
 		document.getElementById("lrc-content").appendChild(tagP);
 		$('#lrc-content').css("height",
 				parseInt($('#lrc-content').css("height")) + 20 + "px");
-//		document.getElementById("lrc-content").appendChild(br);
+		// document.getElementById("lrc-content").appendChild(br);
 	}
 }
 function getLrc(lrcLink) {
 	clearTimeout(lrcTimeout);
-	console.log("getLrc");
-	// $('.lrc-p').html("");
 	$('#lrc-content').css("height", "0px");
 	$('#lrc-content').css("top", "0px");
 	$('#lrc-content').html("");
 	if (lrcLink === "-1") {
 		// 显示暂无歌词
-		// $('#weight').html("暂无歌词");
 		NolrcTips();
 		// 暂时new Array()
 		lrcArray = new Array();
@@ -308,7 +312,7 @@ function initTempList() {
 									+ songName
 									+ "</p><br><p>"
 									+ singerName
-									+ "</p></a><span class=\"add-to-favourite\"></span><span class=\"delete-from-temp\"></span></div>");
+									+ "</p></a><span class=\"add-to-favourite\"><i class=\"fa fa-plus\"></i></span><span class=\"delete-from-temp\"><i class=\"fa fa-remove\"></i></span></div>");
 		} else {
 			$('#music-list-area')
 					.append(
@@ -322,7 +326,7 @@ function initTempList() {
 									+ songName
 									+ "</p><br><p>"
 									+ singerName
-									+ "</p></a><span class=\"add-to-favourite\"></span><span class=\"delete-from-temp\"></span></div>");
+									+ "</p></a><span class=\"add-to-favourite\"><i class=\"fa fa-plus\"></i></span><span class=\"delete-from-temp\"><i class=\"fa fa-remove\"></i></span></div>");
 		}
 		// newPage一直为true
 		if (newPage === true && songId === localStorage.CURRENT_SONG_ID) {
@@ -407,7 +411,7 @@ function updateTempList() {
 									+ songName
 									+ "</p><br><p>"
 									+ singerName
-									+ "</p></a><span class=\"add-to-favourite\"></span><span class=\"delete-from-temp\"></span></div>");
+									+ "</p></a><span class=\"add-to-favourite\"><i class=\"fa fa-plus\"></i></span> <span class=\"delete-from-temp\"><i class=\"fa fa-remove\"></i></span></div>");
 		} else {
 			$('#music-list-area')
 					.append(
@@ -421,7 +425,7 @@ function updateTempList() {
 									+ songName
 									+ "</p><br><p>"
 									+ singerName
-									+ "</p></a><span class=\"add-to-favourite\"></span><span class=\"delete-from-temp\"></span></div>");
+									+ "</p></a><span class=\"add-to-favourite\"><i class=\"fa fa-plus\"></i></span><span class=\"delete-from-temp\"><i class=\"fa fa-remove\"></i></span></div>");
 		}
 
 	}
@@ -476,66 +480,29 @@ function addToPlayListFail(index) {
 }
 
 function playCurrentSong() {
-	console.log("play");
 	$('audio')[0].play();
 	isplay = true;
-	//设置歌词拖动条timeout
-//	dragBallTimeout = setTimeout("dragBallAnimate()", 10);
-	//dragBallAnimate();
-//	gbLrcPos=-1;
-//	lrcFinalPos=-1;
-	//
-//	lrcPosY=0;
-//	currentPosX=-1;
-//	currentPosY=-1;
-//	isDown=false;
-	
-	/*
-	 * var page=""; var mode=""; switch(localStorage.CURRENT_PAGE){ case 0:
-	 * console.log("播放列表"); page="temp"; break; case 1: console.log("搜索列表");
-	 * page="search"; break; case 2: console.log("收藏列表"); page="fav"; break;
-	 * case 3: console.log("其他"); page="other"; break; default:break; }
-	 * 
-	 * //记录下一首歌 switch (playMode){ case "sxbf": console.log("顺序播放");
-	 * mode="sxbf"; break; case "sjbf": console.log("随机播放"); mode="sjbf"; break;
-	 * case "dqxh": console.log("单曲循环"); mode="dqxh"; break; case "lbxh":
-	 * console.log("列表循环"); mode="lbxh"; break; default: break; }
-	 */
-	// getNextSong(page,mode);
+	$('#play_button i').removeClass().addClass(
+			"fa fa-pause fa-2x icon-fixed-to-left");
 }
 function setNextSong(thisSong) {
 	var pmode = playMode;
 	switch (playMode) {
 	case "sxbf":
-		console.log("顺序播放");
 		pmode = "sxbf";
 		break;
 	case "sjbf":
-		console.log("随机播放");
 		pmode = "sjbf";
 		break;
 	case "dqxh":
-		console.log("单曲循环");
 		pmode = "dqxh";
 		break;
 	case "lbxh":
-		console.log("列表循环");
 		pmode = "lbxh";
 		break;
 	default:
 		break;
 	}
-
-	console.log("songid: " + thisSong.attr("songid"));
-	console.log(thisSong.parent());
-	/*
-	 * var pg=localStorage.CURRENT_PAGE; switch(pg){ case '0':
-	 * list=localStorage.TEMP_LIST; break; case '1':
-	 * list=localStorage.SEARCH_LIST; break; /*收藏列表暂未实现 case '2':
-	 * list=localStorage.FAV_LIST; break; case '3': //暂定为临时列表
-	 * list=localStorage.TEMP_LIST; break; default: list=localStorage.TEMP_LIST;
-	 * break; }
-	 */
 
 	if (pmode === 'dqxh') {
 		localStorage.NEXT_SONG_ID = thisSong.attr("songid");
@@ -560,7 +527,6 @@ function setNextSong(thisSong) {
 	} else if (pmode === 'sjbf') {
 		// 随机播放暂时定为本首
 		var len = thisSong.parent().parent().children().length;
-		console.log("len: " + len);
 		if (len === 1) {
 			localStorage.NEXT_SONG_ID = thisSong.attr("songid");
 		} else {
@@ -591,26 +557,6 @@ function setNextSong(thisSong) {
 // 当前歌曲,$
 var ctSong;
 function playEvent() {
-/*
-	$('#music-list-area').delegate('.music-list','click',function(){
-		localStorage.CURRENT_SONG_ID = $(this).attr("songId");
-		var url = encodeURI($(this).attr("songlink"));
-		// 改变播放音乐的路径
-		$('#media').attr("src", url);
-		// 显示歌曲信息
-		setInformation($(this));
-		reset();
-		// 把当前播放的歌曲Id存入localStorage中
-		playCurrentSong();
-
-		getLrc($(this).attr("lrclink"));
-		localStorage.CURRENT_PAGE = 0;
-		setNextSong($(this));
-		ctSong = $(this);
-	});
-	
-	*/
-	
 	// 设置播放列表里中歌曲的播放事件(有问题)
 	$('.music-list').each(function(i) {
 		$(this).click(function() {
@@ -628,14 +574,15 @@ function playEvent() {
 			localStorage.CURRENT_PAGE = 0;
 			setNextSong($(this));
 			ctSong = $(this);
+
+			clearTimeout(dragBallTimeout);
+			dragBallAnimate();
 		});
 	});
 
 	$('.music-list-result').each(function(i) {
 		$(this).unbind('click');
-		console.log("unbind click");
 		$(this).click(function() {
-			console.log("click");
 			localStorage.CURRENT_SONG_ID = $(this).attr("songId");
 			var url = encodeURI($(this).attr("songlink"));
 			// 更新当前歌曲的路径
@@ -656,67 +603,47 @@ function playEvent() {
 			localStorage.CURRENT_PAGE = 1;
 			setNextSong($(this));
 			ctSong = $(this);
+
+			clearTimeout(dragBallTimeout);
+			dragBallAnimate();
 		});
 	});
 
-	/*
-	 * // 设置搜索结果中歌曲的播放事件 $('.music-list-result').each(function(i) {
-	 * $(this).click(function() { var url = encodeURI($(this).attr("songlink")); //
-	 * 改变播放音乐的路径 $('#media').attr("src", url); // 显示歌曲信息
-	 * setInformation($(this)); // 加入播放列表 addToPlayList($(this)); //
-	 * 把当前播放的歌曲Id存入localStorage中 localStorage.CURRENT_SONG_ID =
-	 * $(this).attr("songId"); alert("2"); getLrc($(this).attr("lrclink"));
-	 * playCurrentSong(); /*while($('#media').attr('src')!==url){
-	 * $('#media').attr("src", url); }
-	 */
-	/*
-	 * if($(this).attr('lrclink')!==-1){ console.log("!=-1");
-	 * getLrc($(this).attr("lrclink")); playCurrentSong(); }else{
-	 * console.log("-1"); getLrc($(this).attr("lrclink")); playCurrentSong(); }
-	 * 
-	 *  // getLrc($(this).attr("lrclink")); }); });
-	 */
-
-	document.getElementById('play_button').onclick=function(){
+	document.getElementById('play_button').onclick = function() {
 		if (!isplay) {
 			$('audio')[0].play();
 			isplay = true;
-			//设置歌词拖动条timeout
+			$('#play_button i').removeClass().addClass(
+					"fa fa-pause fa-2x icon-fixed-to-left");
+			// 设置歌词拖动条timeout
 			dragBallAnimate();
 		} else {
 			$('audio')[0].pause();
 			isplay = false;
-			//清除timeout
+			$('#play_button i').removeClass().addClass("fa fa-play fa-2x");
+			// 清除timeout
 			clearTimeout(dragBallTimeout);
 		}
 	};
-	
+
 	/*
-	$('#play_button').click(function() {
-		if (!isplay) {
-			$('audio')[0].play();
-			isplay = true;
-		} else {
-			$('audio')[0].pause();
-			isplay = false;
-		}
-	});*/
+	 * $('#play_button').click(function() { if (!isplay) { $('audio')[0].play();
+	 * isplay = true; } else { $('audio')[0].pause(); isplay = false; } });
+	 */
 
 	$('#play_button').mouseover(function() {
 		$(this).css("cursor", "pointer");
 	});
 
-	document.getElementById('next_song_button').onclick=function(){
-		//重设全局变量
+	document.getElementById('next_song_button').onclick = function() {
+		// 重设全局变量
 		reset();
 		playNextSong();
 	};
-	
+
 	/*
-	$('#next_song_button').click(function() {
-		playNextSong();
-	});
-	*/
+	 * $('#next_song_button').click(function() { playNextSong(); });
+	 */
 	$('#next_song_button').mouseover(function() {
 		$(this).css("cursor", "pointer");
 	});
@@ -725,24 +652,23 @@ function playEvent() {
 		$(this).css("cursor", "pointer");
 	});
 
-	document.getElementById('previous_song_button').onclick=function(){
+	document.getElementById('previous_song_button').onclick = function() {
 		reset();
 		playPrevSong();
 	};
 	/*
-	$('#previous_song_button').click(function() {
-		 playPrevSong();
-	});*/
+	 * $('#previous_song_button').click(function() { playPrevSong(); });
+	 */
 
 }
 
 function playPrevSong() {
-	//如果当前歌曲是第一首,点击播放前一首后先判断是否是唯一的一首......重新播放当前歌曲,如果不是第一首,则把current赋值给next
-	//localStorage.NEXT_SONG_ID = localStorage.CURRENT_SONG_ID;
+	// 如果当前歌曲是第一首,点击播放前一首后先判断是否是唯一的一首......重新播放当前歌曲,如果不是第一首,则把current赋值给next
+	// localStorage.NEXT_SONG_ID = localStorage.CURRENT_SONG_ID;
 
 	var pg = localStorage.CURRENT_PAGE;
 	var list = localStorage.TEMP_LIST;
-	var pmode="";
+	var pmode = "";
 	switch (pg) {
 	case '0':
 		list = localStorage.TEMP_LIST;
@@ -761,30 +687,24 @@ function playPrevSong() {
 		list = localStorage.TEMP_LIST;
 		break;
 	}
-	
-	
+
 	switch (playMode) {
 	case "sxbf":
-		console.log("顺序播放");
 		pmode = "sxbf";
 		break;
 	case "sjbf":
-		console.log("随机播放");
 		pmode = "sjbf";
 		break;
 	case "dqxh":
-		console.log("单曲循环");
 		pmode = "dqxh";
 		break;
 	case "lbxh":
-		console.log("列表循环");
 		pmode = "lbxh";
 		break;
 	default:
 		break;
 	}
 
-	
 	var cSongId = localStorage.CURRENT_SONG_ID;
 	var obj = eval('(' + list + ')');
 	var cIndex = -1;
@@ -794,50 +714,45 @@ function playPrevSong() {
 			break;
 		}
 	}
-	
-	var preIndex=-1;
-	var f=-1;
-	if(pmode==='dqxh'){
-		preIndex=cIndex;
-//		localStorage.NEXT_SONG_ID=localStorage.CURRENT_SONG_ID;
-	}else if((pmode==='sxbf'||pmode==='lbxh')&&cIndex!==0){
-		
-		preIndex=cIndex-1;
-		
-	}else if(pmode==='sxbf'&&cIndex===0){
-		//播放本首
-		preIndex=cIndex;	
-		if(obj.length>1){
-			f=0;
+
+	var preIndex = -1;
+	var f = -1;
+	if (pmode === 'dqxh') {
+		preIndex = cIndex;
+		// localStorage.NEXT_SONG_ID=localStorage.CURRENT_SONG_ID;
+	} else if ((pmode === 'sxbf' || pmode === 'lbxh') && cIndex !== 0) {
+
+		preIndex = cIndex - 1;
+
+	} else if (pmode === 'sxbf' && cIndex === 0) {
+		// 播放本首
+		preIndex = cIndex;
+		if (obj.length > 1) {
+			f = 0;
 		}
-	}else if(pmode==='lbxh'&&cIndex===0){
-		//播放最后一首
-		preIndex=obj.length-1;
-	}else if(pmode==='sjbf'){
-		//生成随机数
-		
+	} else if (pmode === 'lbxh' && cIndex === 0) {
+		// 播放最后一首
+		preIndex = obj.length - 1;
+	} else if (pmode === 'sjbf') {
+		// 生成随机数
+
 		if (obj.length === 1) {
 			preIndex = 0;
 		} else {
 			if (obj.length === 2) {
 				preIndex = 1 - cIndex;
 			} else {
-				var number = Math
-						.floor((Math.random() * (obj.length - 1) + 1));
+				var number = Math.floor((Math.random() * (obj.length - 1) + 1));
 				while (number === cIndex || number > (obj.length - 1)) {
-					number = Math
-							.floor((Math.random() * (obj.length - 1) + 1));
+					number = Math.floor((Math.random() * (obj.length - 1) + 1));
 				}
 				preIndex = number;
 			}
 
 		}
-		
 
-		
 	}
-	
-	
+
 	$('#media').attr('src', obj[preIndex].songUrl);
 	getLrc(obj[preIndex].lrcUrl);
 
@@ -845,40 +760,31 @@ function playPrevSong() {
 			obj[preIndex].songName);
 	$('#information-area').children('span').children('h3').html(
 			obj[preIndex].singerName);
-	
-	if(f===-1){
-		localStorage.NEXT_SONG_ID=localStorage.CURRENT_SONG_ID;	
+
+	if (f === -1) {
+		localStorage.NEXT_SONG_ID = localStorage.CURRENT_SONG_ID;
 	}
-	
+
 	localStorage.CURRENT_SONG_ID = obj[preIndex].songId;
-	
+
 	playCurrentSong();
-	
-	
+
 	/*
-	//当前歌曲是第一首
-	if (cIndex === 0) {
-		$('#media').attr('src', obj[0].songUrl);
-		getLrc(obj[0].lrcUrl);
-		playCurrentSong();
-		//设置下一首歌曲
-		return;
-	}
-
-	if (cIndex !== -1) {
-		$('#media').attr('src', obj[cIndex - 1].songUrl);
-		getLrc(obj[cIndex - 1].lrcUrl);
-
-		$('#information-area').children('span').children('h2').html(
-				obj[cIndex - 1].songName);
-		$('#information-area').children('span').children('h3').html(
-				obj[cIndex - 1].singerName);
-		localStorage.NEXT_SONG_ID=localStorage.CURRENT_SONG_ID;
-		localStorage.CURRENT_SONG_ID = obj[cIndex - 1].songId;
-		
-		playCurrentSong();
-
-	}*/
+	 * //当前歌曲是第一首 if (cIndex === 0) { $('#media').attr('src', obj[0].songUrl);
+	 * getLrc(obj[0].lrcUrl); playCurrentSong(); //设置下一首歌曲 return; }
+	 * 
+	 * if (cIndex !== -1) { $('#media').attr('src', obj[cIndex - 1].songUrl);
+	 * getLrc(obj[cIndex - 1].lrcUrl);
+	 * 
+	 * $('#information-area').children('span').children('h2').html( obj[cIndex -
+	 * 1].songName);
+	 * $('#information-area').children('span').children('h3').html( obj[cIndex -
+	 * 1].singerName); localStorage.NEXT_SONG_ID=localStorage.CURRENT_SONG_ID;
+	 * localStorage.CURRENT_SONG_ID = obj[cIndex - 1].songId;
+	 * 
+	 * playCurrentSong();
+	 *  }
+	 */
 
 }
 
@@ -891,7 +797,7 @@ function setInformation(thisSong) {
 }
 // 处理搜索的结果
 function dealWithSearchResult(data) {
-
+	$('#loading').hide();
 	var searchList = "[";
 	var tags = $('#right').children("ul").children("li");
 	tags[0].style.backgroundColor = "#C5CCCB";
@@ -902,9 +808,7 @@ function dealWithSearchResult(data) {
 	$('#search-result-area').css("display", "block");
 	$('#music-list-area').css("display", "none");
 	$('#favourite-list-area').css("display", "none");
-	// alert(data);
 	var dataObj = eval('(' + data + ')');
-	// alert(dataObj.returncode);
 	$('#search-result-area').html("");
 	if (dataObj.returncode == 0) {
 		var dataList = dataObj.list;
@@ -922,7 +826,7 @@ function dealWithSearchResult(data) {
 									+ music.songName
 									+ "</p><br><p>"
 									+ music.singerName
-									+ "</p></a><span class=\"add-to-favourite\"></span></div>");
+									+ "</p></a><span class=\"add-to-favourite\"><i class=\"fa fa-plus\"></i></span></div>");
 
 			searchList += "{\"songId\":\"" + music.id + "\",\"songName\":\""
 					+ music.songName + "\",\"singerName\":\""
@@ -946,41 +850,34 @@ function dealWithSearchResult(data) {
 		if (dataObj.returncode == -1) {
 			// returncode==-1表示未找到歌曲
 			$('#search-result-area').html(
-					"<div class =\"music-not-found\"><p>暂无数据</p></div>");
+					"<div class =\"music-not-found\"><i class=\"fa fa-meh-o fa-3x\"></i><p>没有找到</p></div>");
 		} else if (dataObj.returncode == -2) {
 			// returncode==-2表示网络出现异常
 			$('#search-result-area').html(
-					"<div class =\"music-not-found\"><p>网络异常</p></div>");
+					"<div class =\"music-not-found\"><i class=\"fa fa-meh-o fa-3x\"></i><p>网络异常</p></div>");
 		}
 
 		$('.music-not-found').css("width", "500px");
 		$('.music-not-found').css("height", "300px");
 		$('.music-not-found').css("position", "absolute");
-		$('.music-not-found').css("backgroundColor", "gray");
 		$('.music-not-found').css("top", "100px");
+		$('.music-not-found').css("left", "100px");
 
-		// 无用代码
 		$('.music-not-found').css("textAlign", "center");
 
-		$('.music-not-found').children('p').css("fontSize", "50px");
+		$('.music-not-found').children('p').css("fontSize", "30px");
 		$('.music-not-found').children('p').css("fontFamily", "微软雅黑");
 
-		// 无用代码
 		$('.music-not-found').children('p').css("textAlign", "center");
-
-		var tWidth = parseInt($('.music-not-found').css("width"));
-		var marginRight = Math.ceil((width - tWidth) / 2);
-		$('.music-not-found').css("right", marginRight + "px");
-		// alert($('.music-not-found').css("height"));
+		$('.music-not-found').children('p').css({"position":"relative","left":"11px"});
 	}
 }
 // 异步提交,避免刷新页面,最后要return false;
 function ajaxSubmit(fram, fn) {
-	// alert('0');
+	$('#loading').show();
 	var songName = document.getElementById('song-name').value;
 	var singerName = document.getElementById('singer-name').value;
 	var title = songName + "$$" + singerName + "$$$$";
-	// alert(title);
 	$.ajax({
 		url : base + "getmusic.action?sourceUrl=" + sourceUrl,
 		method : "POST",
@@ -1062,40 +959,80 @@ function addEvent() {
 	normalEvent();
 	seekEvent();
 }
-function initOtherTool(){
-	$('#control-area').append("<div id =\"tool-area\"><ul><li><span>+</span></li><li><span>-</span></li></ul></div>");
-	$('#tool-area').css({"width":"8%","height":"80px","position":"absolute","right":"0","bottom":"20px"});
-	$('#tool-area span:first').css({"display":"block","width":"20px","height":"20px","position":"absolute","top":"0","right":"0px","border-radius":"20px","font-weight":"bold"});
-	$('#tool-area span:last').css({"display":"block","width":"20px","height":"20px","position":"absolute","top":"25px","right":"0px","border-radius":"20px","font-weight":"bold"});
-	$('#tool-area span:first').attr('id','volume-up');
-	$('#tool-area span:last').attr('id','volume-down');
-	$('#volume-up').css("text-align","center");
-	$('#volume-down').css("text-align","center");
+function initOtherTool() {
+	$('#control-area')
+			.append(
+					"<div id =\"tool-area\"><ul><li><span><i class=\"fa fa-volume-up\"></i></span></li><li><span><i class=\"fa fa-volume-down\"></i></span></li></ul></div>");
+	$('#tool-area').css({
+		"width" : "8%",
+		"height" : "80px",
+		"position" : "absolute",
+		"right" : "0",
+		"bottom" : "20px"
+	});
+	$('#tool-area span:first').css({
+		"display" : "block",
+		"width" : "20px",
+		"height" : "20px",
+		"position" : "absolute",
+		"top" : "0",
+		"right" : "0px",
+		"border-radius" : "20px",
+		"font-weight" : "bold"
+	});
+	$('#tool-area span:last').css({
+		"display" : "block",
+		"width" : "20px",
+		"height" : "20px",
+		"position" : "absolute",
+		"top" : "25px",
+		"right" : "0px",
+		"border-radius" : "20px",
+		"font-weight" : "bold"
+	});
+	$('#tool-area span:first').attr('id', 'volume-up');
+	$('#tool-area span:last').attr('id', 'volume-down');
+	$('#volume-up').css("text-align", "center");
+	$('#volume-down').css("text-align", "center");
 
-	$('#volume-up').mouseover(function(){
-		$(this).css({"cursor":"pointer","font-size":"20px"});
+	$('#volume-up').mouseover(function() {
+		$(this).css({
+			"cursor" : "pointer",
+			"font-size" : "20px"
+		});
 	});
 
-	$('#volume-down').mouseover(function(){
-		$(this).css({"cursor":"pointer","font-size":"20px"});
+	$('#volume-down').mouseover(function() {
+		$(this).css({
+			"cursor" : "pointer",
+			"font-size" : "20px"
+		});
 	});
-	
-	$('#tool-area span').mouseleave(function(){
-		$(this).css("font-size","16px");
+
+	$('#tool-area span').mouseleave(function() {
+		$(this).css("font-size", "16px");
 	});
-	
-	document.getElementById('volume-up').onclick=function(){
-		if(document.getElementById('media').volume<=0.9){
-			document.getElementById('media').volume+=0.1;			
+
+	document.getElementById('volume-up').onclick = function() {
+		if (document.getElementById('media').volume <= 0.9) {
+			document.getElementById('media').volume += 0.1;
 		}
 	};
 
-	document.getElementById('volume-down').onclick=function(){
-		if(document.getElementById('media').volume>=0.1){
-			document.getElementById('media').volume-=0.1;	
+	document.getElementById('volume-down').onclick = function() {
+		if (document.getElementById('media').volume >= 0.1) {
+			document.getElementById('media').volume -= 0.1;
 		}
-		
+
 	};
+	
+	var left=$('#right').width()/2+$('#left').width()-150;
+	var top=$('#right').height()/2-100;
+	$('body').append("<div id =\"loading\"><i class=\"fa fa-spinner fa-spin fa-3x\"></i></div>");
+	$('#loading').css({"position":"absolute","width":"300px","height":"300px","top":top+"px","left":left+"px"});
+	$('#loading i').css({"position":"relative"});
+	$('#loading').hide();
+	
 }
 function initRightTool() {
 	clearTimeout(movement);
@@ -1159,65 +1096,47 @@ function normalEvent() {
 			isOverRightTool = 0;
 			showRightTool();
 		}
-		
-		//进度条拖动事件
-		if(isDraging===true){
-		    //鼠标事件2 - 鼠标移动时（要检测，元素是否标记为移动）
-		    var mouseX=e.pageX-startX;
-		    var maxX=document.getElementById('left').offsetWidth-oDrag.offsetWidth;
-		    mouseX=Math.min(maxX,Math.max(0,mouseX));
-		  
-		    if(isDraging){
-		        oDrag.style.left=mouseX+"px";
-		    }
+
+		// 进度条拖动事件
+		if (isDraging === true) {
+			// 鼠标事件2 - 鼠标移动时（要检测，元素是否标记为移动）
+			var mouseX = e.pageX - startX;
+			var maxX = document.getElementById('left').offsetWidth
+					- oDrag.offsetWidth;
+			mouseX = Math.min(maxX, Math.max(0, mouseX));
+
+			if (isDraging) {
+				oDrag.style.left = mouseX + "px";
+			}
 		}
-		
+
 	};
 	$('#rightTool').mouseleave(function() {
 		hideRightTool();
 	});
 
-	$('.add-to-favourite').click(function() {
-		addToFavourite();
-	});
-
-	// $('.music').each(function(i){var a=$(this)[0].offsetLeft;var
-	// b=$(this)[0].offsetTop;console.log("top:"+b);console.log("left:"+a);$(this).css({"position":"absolute","top":b+"px","left":a+"px"})});
-
 	// 鼠标划过歌曲显示图标
 	$('.music').mouseover(function() {
-		/*
-		 * var aMusic=$(this)[0]; x=aMusic.offsetLeft; y=aMusic.offsetTop;
-		 * aMusic.style.position="absolute"; aMusic.style.left=x;
-		 * aMUsic.style.top=y; aMusic.style.border="2px solid white";
-		 */
 		$(this).children('img').show();
 	});
 
 	// 鼠标离开歌曲隐藏图标
 	$('.music').mouseleave(function() {
-		/*
-		 * var aMusic=$(this)[0]; aMusic.style.position="relative";
-		 */
-
 		$(this).children('img').hide();
 	});
 
 	document.getElementById("media").addEventListener("play", function() {
-		console.log("media play");
 	});
 
 	document.getElementById("media").addEventListener("pause", function() {
-		console.log("media pause");
 	});
 
 	// 当前歌曲播放完毕
 	document.getElementById("media").addEventListener("ended", function() {
-		console.log("media end");
 		reset();
 		playNextSong();
 	});
-	
+
 	// 设置播放模式
 	$('.mode').each(function(i) {
 
@@ -1240,19 +1159,15 @@ function normalEvent() {
 			$('.mode').not($(this)).css("color", "black");
 			switch (i) {
 			case 0:
-				console.log("is 0");
 				playMode = "sxbf";
 				break;
 			case 1:
-				console.log("is 1");
 				playMode = "sjbf";
 				break;
 			case 2:
-				console.log("is 2");
 				playMode = "dqxh";
 				break;
 			case 3:
-				console.log("is 3");
 				playMode = "lbxh";
 				break;
 			default:
@@ -1262,62 +1177,53 @@ function normalEvent() {
 		});
 	});
 
-	
-	$("#music-list-area").delegate(".delete-from-temp","click",function(){
-		console.log("fff   "+$(this).parent().attr('class'));
+	$("#music-list-area").delegate(".delete-from-temp", "click", function() {
 		deleteFromTempList($(this).prev().prev());
 	});
-	
-	/*
-	 * //tag点击事件 $('#rightTool').children('li').each(function(i){
-	 * $(this).click(function(){ localStorage.CURRENT_PAGE=i; }); });
-	 */
 
+	$("#music-list-area").delegate(".add-to-favourite", "click", function() {
+		// 添加到收藏列表
+	});
 
+	$("#search-result-area").delegate(".add-to-favourite", "click", function() {
+		addToPlayList($(this).prev('a'));
+	});
 }
 
-//传入a标签
-function deleteFromTempList(thisSong){
-	var tempList=localStorage.TEMP_LIST;
-	var listObj=eval('('+tempList+')');
-	var id =thisSong.attr('songId');
-	for(var i=0;i<listObj.length;i++){
-		if(listObj[i].songId===id){
+// 传入a标签
+function deleteFromTempList(thisSong) {
+	var tempList = localStorage.TEMP_LIST;
+	var listObj = eval('(' + tempList + ')');
+	var id = thisSong.attr('songId');
+	for ( var i = 0; i < listObj.length; i++) {
+		if (listObj[i].songId === id) {
 			delete listObj[i];
 			break;
 		}
 	}
-	var str=JSON.stringify(listObj);
-	str=str.replace(/null,/,'');
-	str=str.replace(/,null/,'');
-	str=str.replace(/null/,'');
-	localStorage.TEMP_LIST=str;
+	var str = JSON.stringify(listObj);
+	str = str.replace(/null,/, '');
+	str = str.replace(/,null/, '');
+	str = str.replace(/null/, '');
+	localStorage.TEMP_LIST = str;
 	localStorage.TEMP_LIST_LENGTH--;
 	updateTempList();
-	//删除的歌曲是当前歌曲时,不更新下一首,当播放下一首时自动更新
-	if(id!==localStorage.CURRENT_SONG_ID){
-		updateNextSong('no');	
+	// 删除的歌曲是当前歌曲时,不更新下一首,当播放下一首时自动更新
+	if (id !== localStorage.CURRENT_SONG_ID) {
+		updateNextSong('no');
 	}
-	//避免templist的点击事件失效
+	// 避免templist的点击事件失效
 	playEvent();
 }
 
-
 function playNextSong() {
-	console.log("播放播放播放");
-	// 清除歌词,重复
-
-//	$('#lrc-content').css("height", "0px");
-//	$('#lrc-content').css("top", "0px");
-//	$('#lrc-content').html("");
-
 	// 设置信息
 	// 暂时在updateNextSong中设置歌曲显示信息,歌曲歌词路径
 	// 重新设置下一首
 	updateNextSong("yes");
 }
 function updateNextSong(str) {
-	
+
 	var pg = localStorage.CURRENT_PAGE;
 	/* var currentSongId=localStorage.CURRENT_SONG_ID; */
 	var currentSongId = localStorage.NEXT_SONG_ID;
@@ -1331,19 +1237,15 @@ function updateNextSong(str) {
 
 	switch (playMode) {
 	case "sxbf":
-		console.log("顺序播放");
 		pmode = "sxbf";
 		break;
 	case "sjbf":
-		console.log("随机播放");
 		pmode = "sjbf";
 		break;
 	case "dqxh":
-		console.log("单曲循环");
 		pmode = "dqxh";
 		break;
 	case "lbxh":
-		console.log("列表循环");
 		pmode = "lbxh";
 		break;
 	default:
@@ -1368,8 +1270,6 @@ function updateNextSong(str) {
 		list = localStorage.TEMP_LIST;
 		break;
 	}
-	console.log("pg: " + pg);
-	console.log(list);
 	var obj = eval('(' + list + ')');
 	var index = -1;
 	for ( var i = 0; i < obj.length; i++) {
@@ -1379,31 +1279,25 @@ function updateNextSong(str) {
 		}
 	}
 
-	if(index===-1&&str==='yes'&&localStorage.NEXT_SONG_ID === "-1"){
-		
-		
+	if (index === -1 && str === 'yes' && localStorage.NEXT_SONG_ID === "-1") {
+
 		var tIndex = -1;
-		var lsid=localStorage.CURRENT_SONG_ID;
+		var lsid = localStorage.CURRENT_SONG_ID;
 		for ( var i = 0; i < obj.length; i++) {
 			if (obj[i].songId === lsid) {
 				tIndex = i;
 				break;
 			}
 		}
-		
+
 		$('#media').attr("src", obj[tIndex].songUrl);
 		getLrc(obj[tIndex].lrcUrl);
-		//不更改localStorage.CUURENT_SONG_ID;
+		// 不更改localStorage.CUURENT_SONG_ID;
 		playCurrentSong();
-		
+
 		return;
 	}
-	
-	
-	
-	
-	
-	
+
 	if (str === 'yes' && index !== -1) {
 		$('#media').attr("src", obj[index].songUrl);
 		getLrc(obj[index].lrcUrl);
@@ -1467,9 +1361,7 @@ function addToFavourite() {
 
 // 鼠标划过屏幕右侧时,显示右边侧边栏
 function showRightTool() {
-	console.log("end");
 	clearTimeout(movement);
-	console.log("begin");
 	var final_x = $(window).width() - $('#rightTool').width();
 	moveElement('rightTool', final_x, $('#rightTool').offset().top, 1, 'LEFT');
 }
@@ -1553,7 +1445,6 @@ function skinEvent() {
 		$('#skin').attr('src', 'images/skin/pf4.jpg');
 	});
 }
-
 
 // 设置歌曲显示区域的样式
 function setMainHeight() {

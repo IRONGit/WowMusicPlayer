@@ -15,6 +15,7 @@
 <link rel="stylesheet" type="text/css" href="styles/id.css">
 <link rel="stylesheet" type="text/css" href="styles/class.css">
 <link rel="stylesheet" type="text/css" href="styles/temp.css">
+<link rel="stylesheet" type="text/css" href="styles/font-awesome.min.css">
 <script type="text/javascript" src="scripts/jquery-1.11.3.js"></script>
 </head>
 <body>
@@ -34,6 +35,7 @@
 			<div id="other-area">
 				<p>Wow! Player</p>
 				<img alt="皮肤" src="images/skin/pf3.jpg" id="skin">
+				
 			</div>
 		</div>
 		<div id="main">
@@ -59,9 +61,9 @@
 							<li class="mode">列表循环</li>
 						</ul>
 					</div>
-					<div class="buttons" id="previous_song_button"></div>
-					<div class="buttons" id="play_button"></div>
-					<div class="buttons" id="next_song_button"></div>
+					<div class="buttons" id="previous_song_button"><i class="fa fa-fast-backward fa-2x icon-fixed-to-left"></i></div>
+					<div class="buttons" id="play_button"><i class="fa fa-play fa-2x"></i></div>
+					<div class="buttons" id="next_song_button"><i class="fa fa-fast-forward fa-2x icon-fixed-to-left"></i></div>
 				</div>
 			</div>
 			<div id="right">

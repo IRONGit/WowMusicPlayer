@@ -264,6 +264,22 @@
 	float:left;
 	margin:5px;
 }
+i{
+	position:relative;
+	right:-15px;
+	top:9px;
+}
+.icon-fixed-to-left{
+	right:-11px;
+}
+.fa-volume-up,.fa-volume-down{
+	top:2px;
+	right:-1px;
+}
+.fa-plus,.fa-remove{
+	right:-4px;
+	top:3px;
+}
 /*
 #overSkin{
 	width:29px;

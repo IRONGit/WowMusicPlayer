@@ -47,7 +47,7 @@
 	height: 20px;
 	border-radius: 20px;
 	position: absolute;
-	background-color: red;
+	/*background-color: red;*/
 }
 .music:hover{
 	cursor: pointer;
@@ -56,7 +56,6 @@
 	width:700px;
 	height:400px;
 	position: absolute;
-	background-color:gray;
 	top:600px;
 }
 .lrc-p{
@@ -86,6 +85,6 @@
 	position:absolute;
 	top:30px;
 	right:60px;
-	background-color:yellow;
+	/*background-color:yellow;*/
 	border-radius:20px;
 }
