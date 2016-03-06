@@ -1,3 +1,3 @@
 # WowMusicPlayer
 Searchable Web Music Player<br>
-Visit <a href="http://www.geekyouth.net/PlayerTest">WowMusicPlayer</a>
+Visit <a href="http://www.geekyouth.net">WowMusicPlayer</a>
